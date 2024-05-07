@@ -1,11 +1,18 @@
 import React, { useEffect , useState} from 'react';
 import { getTrrendingMovies } from '../service/getTrendingMovies';
 import Pagination from './Pagination';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBookmark  } from '@fortawesome/free-regular-svg-icons';
+import image from '../Asserts/bookmark.png';
+
+
+
 
 
 const Movies = () => {
 const [movies,setMovies]=useState([]);
 const [page, setpage]=useState(1);
+const [WatchList,setWatchlist]=useState([]);
   useEffect(()=>{
 getTrrendingMovies(page).then
 ( (data)=>setMovies(data) ).catch
@@ -21,6 +28,9 @@ getTrrendingMovies(page).then
     }
     
   }
+  const toggleWatchList=(movie)=>{
+    setWatchlist(previousMoviesList =>[...previousMoviesList,movie]);
+  }
   
   return (
     <div>
@@ -30,11 +40,23 @@ getTrrendingMovies(page).then
       {movies &&
        movies.map(movie =>{
         return (
-          
            <div key={movie?.id} 
-           className="w-[160px] h-[30vh] md:h-[30vh] bg-center bg-cover rounded-xl m-4 hover:scale-110 duration-300" 
+           className="w-[160px] h-[30vh] md:h-[30vh] bg-center bg-cover rounded-xl m-4 hover:scale-110 duration-300 relative" 
     style={{backgroundImage:`url(https://image.tmdb.org/t/p/original/t/p/w500/${movie?.poster_path})`}}>
-      <div class= "text-white text-center font-bold bg-gray-900 w-full bg-opacity-40">{movie?.title}</div>
+      <div class= "text-white text-center font-bold bg-opacity-40">
+      <div className="absolute left-2 text-xl  border-slate-950 hover:scale-125 " >
+        {!WatchList.includes(movie)?
+        (<button 
+        onClick={()=>{toggleWatchList(movie);} }>
+        <FontAwesomeIcon icon={faBookmark} />
+        </button>):(
+        <button 
+        onClick={()=>{toggleWatchList(movie);} }>
+     <img src={image} alt="My Image" />
+        </button>)}
+      </div>
+      </div>
+      
     </div>
    
         );
