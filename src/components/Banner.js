@@ -47,10 +47,10 @@ const Banner = ({onprev,onNext}) => {
   >
       <div  >
         <button onClick={loadPrevPageMovies}
-        className=" absolute left-0 top-1/4 m-4 p2  rounded-lg text-white font-bold text-8xl hover:scale-110 duration-100 py-10" >{"<"} </button>
+        className=" absolute left-0  h-[20vh] md:h-[55vh] rounded-lg  text-white font-bold text-8xl hover:scale-110 duration-50 " >{"<"} </button>
         
         <button onClick={loadNextPageMovies}
-        className=" absolute right-0  top-1/4 m-4 p2 rounded-lg text-white font-bold text-8xl hover:scale-110 duration-100 py-10" >{">"}</button>
+        className=" absolute right-0  h-[20vh] md:h-[55vh] rounded-lg text-white font-bold text-8xl hover:scale-110 duration-50  " >{">"}</button>
     </div>
     </div>
   );
