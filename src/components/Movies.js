@@ -29,7 +29,19 @@ getTrrendingMovies(page).then
     
   }
   const toggleWatchList=(movie)=>{
-    setWatchlist(previousMoviesList =>[...previousMoviesList,movie]);
+    if(WatchList.includes(movie)){
+      setWatchlist((previousMoviesList)=>{
+       const filtermovies= previousMoviesList.filter((m)=> m.id!==movie.id);
+       localStorage.setItem('movieWatchList',JSON.stringify(WatchList));
+       return filtermovies;
+      })
+      
+    }else{
+      const filtermovie=setWatchlist(previousMoviesList =>[...previousMoviesList,movie]);
+      localStorage.setItem('movieWatchList',JSON.stringify(WatchList));
+      return filtermovie;
+    }
+   
   }
   
   return (
@@ -44,8 +56,8 @@ getTrrendingMovies(page).then
            className="w-[160px] h-[30vh] md:h-[30vh] bg-center bg-cover rounded-xl m-4 hover:scale-110 duration-300 relative" 
     style={{backgroundImage:`url(https://image.tmdb.org/t/p/original/t/p/w500/${movie?.poster_path})`}}>
       <div class= "text-white text-center font-bold bg-opacity-40">
-      <div className="absolute left-2 text-xl  border-slate-950 hover:scale-125 " >
-        {!WatchList.includes(movie)?
+      <div className="absolute left-2 text-3xl  border-slate-950 hover:scale-125 " >
+        {!WatchList?.includes(movie)?
         (<button 
         onClick={()=>{toggleWatchList(movie);} }>
         <FontAwesomeIcon icon={faBookmark} />
