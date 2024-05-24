@@ -23,10 +23,12 @@ const Table = () => {
                     favMovies?.length > 0 && 
                     favMovies?.map((movie)=>{
                         return (
-                            <tr>
-                    <td className=' flex items-center space-x-2 px-5 py-6'>
-            <img src={`url(https://image.tmdb.org/t/p/original/t/p/w500/${movie?.poster_path})`} 
+                            <tr  key={movie?.id}>
+                    <td className="flex items-center space-x-2 px-5 py-6">
+            <img src={`https://image.tmdb.org/t/p/original/t/p/w500/${movie?.poster_path}`}
             className='h-[10rem] w-[10rem]' alt="Movie Poster"/>
+            
+            
                     <div>{movie?.title}</div></td>
                     <td className='p-2 m-4'>{movie?.vote_average}</td>
                     <td className='p-2 m-4'>{movie?.popularity}</td>

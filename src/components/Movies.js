@@ -1,4 +1,4 @@
-import React, { useEffect , useState} from 'react';
+import React, { useEffect , useState,callback, useCallback} from 'react';
 import { getTrrendingMovies } from '../service/getTrendingMovies';
 import Pagination from './Pagination';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -32,18 +32,21 @@ getTrrendingMovies(page).then
     if(WatchList.includes(movie)){
       setWatchlist((previousMoviesList)=>{
        const filtermovies= previousMoviesList.filter((m)=> m.id!==movie.id);
-       localStorage.setItem('movieWatchList',JSON.stringify(WatchList));
+       localStorage.setItem('movieWatchList',JSON.stringify(filtermovies));
        return filtermovies;
       })
       
     }else{
-      const filtermovie=setWatchlist(previousMoviesList =>[...previousMoviesList,movie]);
-      localStorage.setItem('movieWatchList',JSON.stringify(WatchList));
-      return filtermovie;
+      setWatchlist((previousMoviesList) =>{
+        const filtermovie=previousMoviesList?.length>0?[...previousMoviesList,movie]:[movie];
+        localStorage.setItem('movieWatchList',JSON.stringify(filtermovie));
+        return filtermovie;
+      });
+     
     }
    
-  }
-  
+  };
+
   return (
     <div>
     <div className="text-3xl mb-0 font-bold text-center  bg-black text-white p-2px hover:scale-110 duration-100">Trending Movies</div>
