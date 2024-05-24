@@ -1,9 +1,12 @@
 import React from 'react';
+import Table from './WatchList/Table';
 
 const Watchlist = () => {
   return (
-    <div>Watchlist</div>
+    <div>
+    <Table/> 
+    </div>
   );
 };
 
-export default Watchlist
+export default Watchlist;

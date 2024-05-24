@@ -20,7 +20,12 @@ function App() {
       </Fragment>
     
      }></Route>
-     <Route path="/Watchlist" element={<Watchlist/>}>
+     <Route path="/Watchlist" element={ <Fragment>
+      <Navbar/>
+     <Watchlist/>
+     </Fragment>
+     
+    }>
     
      </Route>
     
