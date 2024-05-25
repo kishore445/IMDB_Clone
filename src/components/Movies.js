@@ -23,11 +23,12 @@ getTrrendingMovies(page).then
     setpage((prevPage)=>prevPage+1);
   },[]);
   const loadPrevPageMovies=useCallback(()=>{
+   
     if(page>1){
       setpage((prevPage)=>prevPage-1);
     }
     
-  },[]);
+  },[page]);
   const toggleWatchList=useCallback((movie)=>{
     if(WatchList.includes(movie)){
       setWatchlist((previousMoviesList)=>{
