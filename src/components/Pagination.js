@@ -12,4 +12,4 @@ const Pagination = ({onprev,onNext,currpage}) => {
   )
 }
 
-export default Pagination;
+export default React.memo(Pagination);
