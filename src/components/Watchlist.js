@@ -1,5 +1,5 @@
 import React from 'react';
-import Table from './WatchList/Table';
+import Table from './WatchList/movies/Table';
 
 const Watchlist = () => {
   return (
