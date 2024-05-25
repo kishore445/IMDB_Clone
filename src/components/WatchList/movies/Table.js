@@ -1,5 +1,8 @@
 import React, { useEffect, useState,useCallback  } from 'react'
 import { json } from 'react-router-dom';
+import { genreids } from "./Helper";
+
+
 
 const Table = () => {
     const [favMovies, setFavMovies] = useState([]);
@@ -11,7 +14,7 @@ const Table = () => {
     const deleteMovieHandler = useCallback((movie)=>{
         const filteredMovies= favMovies?.filter(m=>m.id!==movie.id);
         setFavMovies(filteredMovies);
-        localStorage.setItem("moviesWatchList", JSON.stringify(filteredMovies));
+        localStorage.setItem("movieWatchList", JSON.stringify(filteredMovies));
     },[favMovies]);
   return (
     <div className='border border-gray-300 shadow-sm m-4 rounded-sm'>
@@ -22,6 +25,7 @@ const Table = () => {
                     <th className='p-2 m-4 text-gray-800'>Rating</th>
                     <th className='p-2 m-4 text-gray-800'>Popularity</th>
                     <th className='p-2 m-4 text-gray-800'>Release Date</th>
+                    <th className='p-2 m-4 text-gray-800'>Genre</th>
                     <th className='p-2 m-4 text-gray-800'>Action</th>
                 </tr>
             </thead>
@@ -40,6 +44,7 @@ const Table = () => {
                     <td className='p-2 m-4'>{movie?.vote_average}</td>
                     <td className='p-2 m-4'>{movie?.popularity}</td>
                     <td className='p-2 m-4'>{movie?.release_date}</td>
+                    <td className='p-2 m-4'>{genreids[movie?.genre_ids[0]] } , {genreids[movie?.genre_ids[1]]}</td>
                     <td>
                         <button className='text-white border-2 border-black bg-red-600 p-2 rounded' onClick={()=>{
                             deleteMovieHandler(movie)
