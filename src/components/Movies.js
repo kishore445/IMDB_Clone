@@ -19,16 +19,16 @@ getTrrendingMovies(page).then
 ((err)=>console.log((err)));
     
   },[page]);
-  const loadNextPageMovies=()=>{
+  const loadNextPageMovies=useCallback(()=>{
     setpage((prevPage)=>prevPage+1);
-  }
-  const loadPrevPageMovies=()=>{
+  },[]);
+  const loadPrevPageMovies=useCallback(()=>{
     if(page>1){
       setpage((prevPage)=>prevPage-1);
     }
     
-  }
-  const toggleWatchList=(movie)=>{
+  },[]);
+  const toggleWatchList=useCallback((movie)=>{
     if(WatchList.includes(movie)){
       setWatchlist((previousMoviesList)=>{
        const filtermovies= previousMoviesList.filter((m)=> m.id!==movie.id);
@@ -45,7 +45,7 @@ getTrrendingMovies(page).then
      
     }
    
-  };
+  },[WatchList]);
 
   return (
     <div>
