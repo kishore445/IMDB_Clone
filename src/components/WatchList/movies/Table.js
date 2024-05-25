@@ -1,4 +1,5 @@
 import React, { useEffect, useState,useCallback  } from 'react'
+import { json } from 'react-router-dom';
 
 const Table = () => {
     const [favMovies, setFavMovies] = useState([]);
@@ -7,6 +8,11 @@ const Table = () => {
             setFavMovies(JSON.parse(localStorage.getItem("movieWatchList")))
         }
     },[]);
+    const deleteMovieHandler = useCallback((movie)=>{
+        const filteredMovies= favMovies?.filter(m=>m.id!==movie.id);
+        setFavMovies(filteredMovies);
+        localStorage.setItem("moviesWatchList", JSON.stringify(filteredMovies));
+    },[favMovies]);
   return (
     <div className='border border-gray-300 shadow-sm m-4 rounded-sm'>
         <table className='w-full border-collapse bg-white text-left text-sm text-gray-500'>
@@ -16,6 +22,7 @@ const Table = () => {
                     <th className='p-2 m-4 text-gray-800'>Rating</th>
                     <th className='p-2 m-4 text-gray-800'>Popularity</th>
                     <th className='p-2 m-4 text-gray-800'>Release Date</th>
+                    <th className='p-2 m-4 text-gray-800'>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -33,6 +40,13 @@ const Table = () => {
                     <td className='p-2 m-4'>{movie?.vote_average}</td>
                     <td className='p-2 m-4'>{movie?.popularity}</td>
                     <td className='p-2 m-4'>{movie?.release_date}</td>
+                    <td>
+                        <button className='text-white border-2 border-black bg-red-600 p-2 rounded' onClick={()=>{
+                            deleteMovieHandler(movie)
+                        }}>
+                            Delete
+                        </button>
+                    </td>
                 </tr>
                         )
                             
