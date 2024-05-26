@@ -6,9 +6,14 @@ import { genreids } from "./Helper";
 
 const Table = () => {
     const [favMovies, setFavMovies] = useState([]);
+    const [genre , setGenere]= useState([])
+
     useEffect(()=>{
         if(localStorage.getItem('movieWatchList')){
-            setFavMovies(JSON.parse(localStorage.getItem("movieWatchList")))
+            const movies=JSON.parse(localStorage.getItem("movieWatchList")); 
+            setFavMovies(movies);
+            const listOfGenre = new Set(movies.map((movie)=> genreids[movie?.genre_ids[0]]));
+            setGenere((prevItem)=>["All Genre",...listOfGenre]);
         }
     },[]);
     const deleteMovieHandler = useCallback((movie)=>{
@@ -18,6 +23,14 @@ const Table = () => {
     },[favMovies]);
   return (
     <div className='border border-gray-300 shadow-sm m-4 rounded-sm'>
+        <div className="mt-6 flex flex-wrap space-x-2 justify-center ">
+        {genre?.length>0 && genre.map((eachGenre,idx)=>{
+           return <div key={idx}className={"m-2 text-lg p-1 bg-gray-400 hover:bg-blue-400  text-white rounded-xl  font-bold"}
+         
+           >
+            {eachGenre}</div>
+        })}
+        </div>
         <table className='w-full border-collapse bg-white text-left text-sm text-gray-500'>
             <thead>
                 <tr>
