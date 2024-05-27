@@ -86,7 +86,7 @@ const Table = () => {
         </div>
 
         <div className='text-center'>
-            <label for="title">Movie Title</label>
+            <label for="title">Enter Movie Title</label>
         <input type ="text" id="title"className="bg-gray-200  p-1 m-1 border-4"
         placeholder='Sarch for the movie' value={searchStr}onChange={(e)=>inputhandler(e.target.value)}></input>
         </div>
