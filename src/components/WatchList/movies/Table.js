@@ -35,14 +35,14 @@ const Table = () => {
        
         setFavMovies(filteredMovies);
         setFilteredMovies(filteredMovies);
-    
-       
-        setCurrGenre("All Genre");
       
-          
+        
+        setCurrGenre("All Genre");
+      console.log(filteredMovies.length)
+        
        
         localStorage.setItem("movieWatchList", JSON.stringify(filteredMovies));
-    },[filterMovies]);
+    },[filterMovies,currGenre]);
 
 
     const currGenreHandler = useCallback(
