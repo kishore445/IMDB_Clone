@@ -7,7 +7,7 @@ import { genreids } from "./Helper";
 const Table = () => {
     const [favMovies, setFavMovies] = useState([]);
     const [genre , setGenere]= useState([])
-    const [currGenre,setCurrGenre]=useState([])
+    const [currGenre,setCurrGenre]=useState(["All Genre"])
     const [filterMovies, setFilteredMovies] = useState([]);
 
     useEffect(()=>{
@@ -19,24 +19,30 @@ const Table = () => {
              setFilteredMovies(movies); 
         }
     },[]);
+ 
     useEffect(()=>{
-    {
-            const movies=JSON.parse(localStorage.getItem("movieWatchList")); 
-            setFavMovies(movies);
-            const listOfGenre = new Set(movies.map((movie)=> genreids[movie?.genre_ids[0]]));
-             setGenere(["All Genre",...listOfGenre]);
-          
-        }
-    },[filterMovies]);
+        
+                const movies=JSON.parse(localStorage.getItem("movieWatchList")); 
+                setFavMovies(movies);
+                const listOfGenre = new Set(movies.map((movie)=> genreids[movie?.genre_ids[0]]));
+                 setGenere(["All Genre",...listOfGenre]);
+                 
+            
+        },[filterMovies]);
+
     const deleteMovieHandler = useCallback((movie)=>{
         const filteredMovies= favMovies?.filter(m=>m.id!==movie.id);
        
         setFavMovies(filteredMovies);
         setFilteredMovies(filteredMovies);
+    
        
-
+        setCurrGenre("All Genre");
+      
+          
+       
         localStorage.setItem("movieWatchList", JSON.stringify(filteredMovies));
-    },[favMovies]);
+    },[filterMovies]);
 
 
     const currGenreHandler = useCallback(
