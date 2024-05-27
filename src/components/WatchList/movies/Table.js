@@ -9,6 +9,7 @@ const Table = () => {
     const [genre , setGenere]= useState([])
     const [currGenre,setCurrGenre]=useState(["All Genre"])
     const [filterMovies, setFilteredMovies] = useState([]);
+    const [searchStr, setSearchStr] = useState("");
 
     useEffect(()=>{
         if(localStorage.getItem('movieWatchList')){
@@ -38,7 +39,7 @@ const Table = () => {
       
         
         setCurrGenre("All Genre");
-      console.log(filteredMovies.length)
+    //   console.log(filteredMovies.length)
         
        
         localStorage.setItem("movieWatchList", JSON.stringify(filteredMovies));
@@ -58,9 +59,20 @@ const Table = () => {
           }
           setFilteredMovies(filteredMovies);
         },
-        [genre]
+        []
       );
-    
+    const inputhandler=useCallback((val)=>{
+        setSearchStr(val);
+        if(val===""){
+            currGenreHandler(currGenre);
+        }else{
+            setFilteredMovies(
+                filterMovies.filter((m) =>
+                  m.title.toLowerCase().includes(val.toLowerCase())
+            ))
+        }
+        
+      },[filterMovies,currGenre,currGenreHandler])
    
   return (
     <div className='border border-gray-300 shadow-sm m-4 rounded-sm'>
@@ -72,6 +84,13 @@ const Table = () => {
             {eachGenre}</div>
         })}
         </div>
+
+        <div className='text-center'>
+            <label for="title">Movie Title</label>
+        <input type ="text" id="title"className="bg-gray-200  p-1 m-1 border-4"
+        placeholder='Sarch for the movie' value={searchStr}onChange={(e)=>inputhandler(e.target.value)}></input>
+        </div>
+      
         <table className='w-full border-collapse bg-white text-left text-sm text-gray-500'>
             <thead>
                 <tr>
