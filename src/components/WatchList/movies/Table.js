@@ -7,26 +7,61 @@ import { genreids } from "./Helper";
 const Table = () => {
     const [favMovies, setFavMovies] = useState([]);
     const [genre , setGenere]= useState([])
+    const [currGenre,setCurrGenre]=useState([])
+    const [filterMovies, setFilteredMovies] = useState([]);
 
     useEffect(()=>{
         if(localStorage.getItem('movieWatchList')){
             const movies=JSON.parse(localStorage.getItem("movieWatchList")); 
             setFavMovies(movies);
             const listOfGenre = new Set(movies.map((movie)=> genreids[movie?.genre_ids[0]]));
-            setGenere((prevItem)=>["All Genre",...listOfGenre]);
+             setGenere(["All Genre",...listOfGenre]);
+             setFilteredMovies(movies); 
         }
     },[]);
+    useEffect(()=>{
+    {
+            const movies=JSON.parse(localStorage.getItem("movieWatchList")); 
+            setFavMovies(movies);
+            const listOfGenre = new Set(movies.map((movie)=> genreids[movie?.genre_ids[0]]));
+             setGenere(["All Genre",...listOfGenre]);
+          
+        }
+    },[filterMovies]);
     const deleteMovieHandler = useCallback((movie)=>{
         const filteredMovies= favMovies?.filter(m=>m.id!==movie.id);
+       
         setFavMovies(filteredMovies);
+        setFilteredMovies(filteredMovies);
+       
+
         localStorage.setItem("movieWatchList", JSON.stringify(filteredMovies));
     },[favMovies]);
+
+
+    const currGenreHandler = useCallback(
+        (eachGenre) => {
+          setCurrGenre(eachGenre);
+          let filteredMovies = [];
+          if (eachGenre === "All Genre") {
+            filteredMovies = favMovies;
+          } else {
+            filteredMovies = favMovies.filter(
+              (m) => genreids[m?.genre_ids[0]] === eachGenre
+            );
+          }
+          setFilteredMovies(filteredMovies);
+        },
+        [genre]
+      );
+    
+   
   return (
     <div className='border border-gray-300 shadow-sm m-4 rounded-sm'>
         <div className="mt-6 flex flex-wrap space-x-2 justify-center ">
         {genre?.length>0 && genre.map((eachGenre,idx)=>{
-           return <div key={idx}className={"m-2 text-lg p-1 bg-gray-400 hover:bg-blue-400  text-white rounded-xl  font-bold"}
-         
+           return <div key={idx}className={currGenre===eachGenre?"m-2 text-lg p-1 bg-blue-400 text-white rounded-xl font-bold":"m-2 text-lg p-1 bg-gray-400 hover:bg-blue-400  text-white rounded-xl  font-bold"}
+         onClick={()=>currGenreHandler(eachGenre)}
            >
             {eachGenre}</div>
         })}
@@ -44,8 +79,8 @@ const Table = () => {
             </thead>
             <tbody>
                 {
-                    favMovies?.length > 0 && 
-                    favMovies?.map((movie)=>{
+                    filterMovies?.length > 0 && 
+                   filterMovies?.map((movie)=>{
                         return (
                             <tr  key={movie?.id}>
                     <td className="flex items-center space-x-2 px-5 py-6">
