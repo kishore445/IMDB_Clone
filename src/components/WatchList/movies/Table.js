@@ -20,45 +20,25 @@ const Table = () => {
              setFilteredMovies(movies); 
         }
     },[]);
- 
-    useEffect(()=>{
-        
-                const movies=JSON.parse(localStorage.getItem("movieWatchList")); 
-                setFavMovies(movies);
-                const listOfGenre = new Set(movies.map((movie)=> genreids[movie?.genre_ids[0]]));
-                 setGenere(["All Genre",...listOfGenre]);
-        },[]);
+   
         useEffect(()=>{
         
             const movies=JSON.parse(localStorage.getItem("movieWatchList")); 
-  
+           
             setFavMovies(movies);
-           
-    },[favMovies]);
-
-        useEffect(()=>{
-            const movies=JSON.parse(localStorage.getItem("movieWatchList")); 
-  
-            currGenreHandler(currGenre);
-            if(filterMovies.length===0){
-                setCurrGenre("All Genre");
-                
-        }
-           
-    },[filterMovies]);
-
-        useEffect(()=>{
-        
-            const movies=JSON.parse(localStorage.getItem("movieWatchList")); 
-  
-            // setFavMovies(movies);
             const listOfGenre = new Set(movies.map((movie)=> genreids[movie?.genre_ids[0]]));
              setGenere(["All Genre",...listOfGenre]);
            
         
-    },[currGenre]);
-
-
+    },[filterMovies]);
+//     useEffect(()=>{
+//         setCurrGenre("All Genre");
+//      if(filterMovies.length>1){
+//          currGenreHandler(currGenre);
+//      }
+        
+    
+// },[]);
     const currGenreHandler = useCallback(
         (eachGenre) => {
           setCurrGenre(eachGenre);
@@ -76,18 +56,19 @@ const Table = () => {
       );
     const deleteMovieHandler = useCallback((movie)=>{
         const filteredMovies= favMovies?.filter(m=>m.id!==movie.id);
-      
-            setFilteredMovies(filteredMovies);
-            setFavMovies(filteredMovies);
-            setFilteredMovies(filteredMovies);
-            setSearchStr("");
-           
         
+        setFavMovies(filteredMovies);
+        setFilteredMovies(filteredMovies);
+        setSearchStr("");
+        if(filterMovies.length===1){
+                setCurrGenre("All Genre");
+                
+        }
              
         localStorage.setItem("movieWatchList", JSON.stringify(filteredMovies));
     },[filterMovies,currGenre,currGenreHandler]);
 
-
+    
   
     const inputhandler=useCallback((val)=>{
         setSearchStr(val);
