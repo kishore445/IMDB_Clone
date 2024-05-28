@@ -58,7 +58,7 @@ const Table = () => {
           }
           setFilteredMovies(filteredMovies);
         },
-        []
+        [filterMovies]
       );
     const inputhandler=useCallback((val)=>{
         setSearchStr(val);
