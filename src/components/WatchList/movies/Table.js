@@ -27,22 +27,36 @@ const Table = () => {
                 setFavMovies(movies);
                 const listOfGenre = new Set(movies.map((movie)=> genreids[movie?.genre_ids[0]]));
                  setGenere(["All Genre",...listOfGenre]);
-                 
-            
-        },[filterMovies]);
+        },[]);
+        useEffect(()=>{
+        
+            const movies=JSON.parse(localStorage.getItem("movieWatchList")); 
+  
+            setFavMovies(movies);
+           
+    },[favMovies]);
 
-    const deleteMovieHandler = useCallback((movie)=>{
-        const filteredMovies= favMovies?.filter(m=>m.id!==movie.id);
-       
-        setFavMovies(filteredMovies);
-        setFilteredMovies(filteredMovies);
-      
+        useEffect(()=>{
+            const movies=JSON.parse(localStorage.getItem("movieWatchList")); 
+  
+            currGenreHandler(currGenre);
+            if(filterMovies.length===0){
+                setCurrGenre("All Genre");
+                
+        }
+           
+    },[filterMovies]);
+
+        useEffect(()=>{
         
-        setCurrGenre("All Genre");
+            const movies=JSON.parse(localStorage.getItem("movieWatchList")); 
+  
+            // setFavMovies(movies);
+            const listOfGenre = new Set(movies.map((movie)=> genreids[movie?.genre_ids[0]]));
+             setGenere(["All Genre",...listOfGenre]);
+           
         
-       
-        localStorage.setItem("movieWatchList", JSON.stringify(filteredMovies));
-    },[filterMovies,currGenre]);
+    },[currGenre]);
 
 
     const currGenreHandler = useCallback(
@@ -60,6 +74,21 @@ const Table = () => {
         },
         [filterMovies]
       );
+    const deleteMovieHandler = useCallback((movie)=>{
+        const filteredMovies= favMovies?.filter(m=>m.id!==movie.id);
+      
+            setFilteredMovies(filteredMovies);
+            setFavMovies(filteredMovies);
+            setFilteredMovies(filteredMovies);
+            setSearchStr("");
+           
+        
+             
+        localStorage.setItem("movieWatchList", JSON.stringify(filteredMovies));
+    },[filterMovies,currGenre,currGenreHandler]);
+
+
+  
     const inputhandler=useCallback((val)=>{
         setSearchStr(val);
         if(val===""){
