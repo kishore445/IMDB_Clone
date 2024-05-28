@@ -39,7 +39,6 @@ const Table = () => {
       
         
         setCurrGenre("All Genre");
-    //   console.log(filteredMovies.length)
         
        
         localStorage.setItem("movieWatchList", JSON.stringify(filteredMovies));
