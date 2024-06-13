@@ -15,9 +15,11 @@ const Table = () => {
         if(localStorage.getItem('movieWatchList')){
             const movies=JSON.parse(localStorage.getItem("movieWatchList")); 
             setFavMovies(movies);
-            const listOfGenre = new Set(movies.map((movie)=> genreids[movie?.genre_ids[0]]));
-             setGenere(["All Genre",...listOfGenre]);
+            // const listOfGenre = new Set(movies.map((movie)=> genreids[movie?.genre_ids[0]]));
+            //  setGenere(["All Genre",...listOfGenre]);
+            setCurrGenre("All Genre");
              setFilteredMovies(movies); 
+
         }
     },[]);
    
