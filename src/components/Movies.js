@@ -1,4 +1,4 @@
-import React, { useEffect , useState,callback, useCallback} from 'react';
+import React, { useEffect , useState, useCallback} from 'react';
 import { getTrrendingMovies } from '../service/getTrendingMovies';
 import Pagination from './Pagination';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

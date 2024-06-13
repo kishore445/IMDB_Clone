@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import  { useState, useEffect } from 'react';
 import image1 from '../Asserts/1.jpg';
 import image2 from '../Asserts/2.jpg';
