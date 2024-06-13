@@ -10,6 +10,7 @@ const Table = () => {
     const [currGenre,setCurrGenre]=useState(["All Genre"])
     const [filterMovies, setFilteredMovies] = useState([]);
     const [searchStr, setSearchStr] = useState("");
+    const [sortRatings, setSortRatings]= useState("");
 
     useEffect(()=>{
         if(localStorage.getItem('movieWatchList')){
@@ -82,6 +83,17 @@ const Table = () => {
         }
         
       },[filterMovies,currGenre,currGenreHandler])
+
+      const sortHandler =(order)=>{
+        let sortedData=[];
+        if(order=="ascending"){
+            sortedData= filterMovies.sort((m1,m2)=>m1.vote_average-m2.vote_average);
+        }else{
+            sortedData= filterMovies.sort((m1,m2)=>m2.vote_average-m1.vote_average);
+        }
+        setFilteredMovies(sortedData);
+      }
+
    
   return (
     <div className='border border-gray-300 shadow-sm m-4 rounded-sm'>
@@ -104,7 +116,21 @@ const Table = () => {
             <thead>
                 <tr>
                     <th className='p-2 m-4 text-gray-800'>Name</th>
-                    <th className='p-2 m-4 text-gray-800'>Rating</th>
+                    <th className='p-2 m-4 text-gray-800 flex space-x-2'>
+                    <img
+                    className="mr-1"
+                    alt="ascending button"
+                    onClick={() => sortHandler("ascending")}
+                    src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-up-arrows-those-icons-lineal-those-icons-3.png"
+                  />
+                        Rating
+                        <img
+                    className="ml-1"
+                    alt="descending button"
+                    onClick={() => sortHandler("desending")}
+                    src="https://img.icons8.com/external-those-icons-lineal-those-icons/24/000000/external-down-arrows-those-icons-lineal-those-icons-4.png"
+                  />
+                        </th>
                     <th className='p-2 m-4 text-gray-800'>Popularity</th>
                     <th className='p-2 m-4 text-gray-800'>Release Date</th>
                     <th className='p-2 m-4 text-gray-800'>Genre</th>
