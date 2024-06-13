@@ -35,7 +35,7 @@ getTrrendingMovies(page).then
     
   },[page]);
   const toggleWatchList=useCallback((movie)=>{
-    const isInWatchlist = WatchList.some(
+    const isInWatchlist = WatchList&&WatchList.some(
       (item) => item.id === movie.id
     );
     if(isInWatchlist){
