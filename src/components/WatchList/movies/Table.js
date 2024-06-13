@@ -38,18 +38,12 @@ const Table = () => {
         }
           
         
-    },[filterMovies]);
-//     useEffect(()=>{
-//         setCurrGenre("All Genre");
-//      if(filterMovies.length>1){
-//          currGenreHandler(currGenre);
-//      }
-        
-    
-// },[]);
+    },[filterMovies,searchStr]);
+
     const currGenreHandler = useCallback(
         (eachGenre) => {
           setCurrGenre(eachGenre);
+        
           let filteredMovies = [];
           if (eachGenre === "All Genre") {
             filteredMovies = favMovies;
@@ -59,6 +53,8 @@ const Table = () => {
             );
           }
           setFilteredMovies(filteredMovies);
+          setSearchStr("");
+          
         },
         [favMovies]
       );
