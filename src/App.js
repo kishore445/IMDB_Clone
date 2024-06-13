@@ -4,13 +4,13 @@ import Navbar from './components/Navbar';
 import Banner from './components/Banner';
 import Movies from './components/Movies'
 import Watchlist from './components/Watchlist';
-import {BrowserRouter, Routes,Route} from "react-router-dom";
+import { Routes,Route, HashRouter} from "react-router-dom";
 import { Fragment } from 'react';
 
 function App() {
   return (
    
-     <BrowserRouter>
+     <HashRouter>
      <Routes>
      <Route path="/"element={
       <Fragment>
@@ -30,7 +30,7 @@ function App() {
      </Route>
     
       </Routes>
-      </BrowserRouter>
+      </HashRouter>
    
   );
 }
