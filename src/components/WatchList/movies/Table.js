@@ -91,7 +91,7 @@ const Table = () => {
         }else{
             sortedData= filterMovies.sort((m1,m2)=>m2.vote_average-m1.vote_average);
         }
-        setFilteredMovies(sortedData);
+        setFilteredMovies([...sortedData]);
       }
 
    
