@@ -22,13 +22,21 @@ const Table = () => {
     },[]);
    
         useEffect(()=>{
-        
-            const movies=JSON.parse(localStorage.getItem("movieWatchList")); 
+            const moviesString = localStorage.getItem("movieWatchList");
+        try{
+            if(moviesString){
+                const movies=JSON.parse(moviesString); 
            
-            setFavMovies(movies);
-            const listOfGenre = new Set(movies.map((movie)=> genreids[movie?.genre_ids[0]]));
-             setGenere(["All Genre",...listOfGenre]);
+                setFavMovies(movies);
+                const listOfGenre = new Set(movies.map((movie)=> genreids[movie?.genre_ids[0]]));
+                 setGenere(["All Genre",...listOfGenre]);
+            }
            
+           
+        }catch( e){
+            console.error("error in local storage",e);
+        }
+          
         
     },[filterMovies]);
 //     useEffect(()=>{
