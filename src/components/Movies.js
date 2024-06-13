@@ -79,7 +79,7 @@ getTrrendingMovies(page).then
         </button>):(
         <button 
         onClick={()=>{toggleWatchList(movie);} }>
-     <img src={image} alt="My Image" />
+     <img src={image} alt="movie" />
         </button>)}
       </div>
       </div>

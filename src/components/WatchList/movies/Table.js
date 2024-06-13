@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useCallback  } from 'react'
-import { json } from 'react-router-dom';
+
 import { genreids } from "./Helper";
 
 
@@ -10,7 +10,6 @@ const Table = () => {
     const [currGenre,setCurrGenre]=useState(["All Genre"])
     const [filterMovies, setFilteredMovies] = useState([]);
     const [searchStr, setSearchStr] = useState("");
-    const [sortRatings, setSortRatings]= useState("");
 
     useEffect(()=>{
         if(localStorage.getItem('movieWatchList')){
@@ -53,7 +52,7 @@ const Table = () => {
           }
           setFilteredMovies(filteredMovies);
         },
-        [filterMovies]
+        [favMovies]
       );
     const deleteMovieHandler = useCallback((movie)=>{
         const filteredMovies= favMovies?.filter(m=>m.id!==movie.id);
@@ -67,7 +66,7 @@ const Table = () => {
         }
              
         localStorage.setItem("movieWatchList", JSON.stringify(filteredMovies));
-    },[filterMovies,currGenre,currGenreHandler]);
+    },[filterMovies,favMovies]);
 
     
   
@@ -86,7 +85,7 @@ const Table = () => {
 
       const sortHandler =(order)=>{
         let sortedData=[];
-        if(order=="ascending"){
+        if(order==="ascending"){
             sortedData= filterMovies.sort((m1,m2)=>m1.vote_average-m2.vote_average);
         }else{
             sortedData= filterMovies.sort((m1,m2)=>m2.vote_average-m1.vote_average);
