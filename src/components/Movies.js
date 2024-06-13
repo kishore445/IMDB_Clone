@@ -62,8 +62,8 @@ getTrrendingMovies(page).then
     <div className="flex  flex-wrap   bg-black justify-center">
     
       {movies &&
-       movies?.map((movie) =>{
-        const isInWatchlist = WatchList.some(
+       movies.map((movie) =>{
+        const isInWatchlist = WatchList&&WatchList.some(
           (item) => item.id === movie.id
         );
         return (
