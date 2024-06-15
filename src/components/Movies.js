@@ -69,7 +69,10 @@ getTrrendingMovies(page).then
         return (
            <div key={movie?.id} 
            className="w-[160px] h-[30vh] md:h-[30vh] bg-center bg-cover rounded-xl m-4 hover:scale-110 duration-300 relative" 
-    style={{backgroundImage:`url(https://image.tmdb.org/t/p/original/t/p/w500/${movie?.poster_path})`}}>
+    style={{backgroundImage:`url(https://image.tmdb.org/t/p/original/t/p/w500/${movie?.poster_path})`}} 
+    onClick={()=>{console.log("1")}}>
+    
+      
       <div className= "text-white text-center font-bold bg-opacity-40">
       <div className="absolute left-2 text-3xl  border-slate-950 hover:scale-125 " >
         {!isInWatchlist?
