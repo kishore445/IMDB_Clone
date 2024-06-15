@@ -84,19 +84,25 @@ getTrrendingMovies(page).then
            <div key={movie?.id} 
            className="w-[160px] h-[30vh] md:h-[30vh] bg-center bg-cover rounded-xl m-4 hover:scale-110 duration-300 relative" 
     style={{backgroundImage:`url(https://image.tmdb.org/t/p/original/t/p/w500/${movie?.poster_path})`}} 
-    onClick={() => handleOpenModal(movie)}
-    >
+    onClick={(e) =>{ 
+      handleOpenModal(movie)
+    }}
     
-      
+    >
       <div className= "text-white text-center font-bold bg-opacity-40">
-      <div className="absolute left-2 text-3xl  border-slate-950 hover:scale-125 " >
+      <div className="absolute left-2 text-3xl  border-slate-950 hover:scale-125 "
+       >
         {!isInWatchlist?
         (<button 
-        onClick={()=>{toggleWatchList(movie);} }>
+        onClick={(e)=>{
+          e.stopPropagation(); 
+          toggleWatchList(movie);} }>
         <FontAwesomeIcon icon={faBookmark} />
         </button>):(
         <button 
-        onClick={()=>{toggleWatchList(movie);} }>
+        onClick={(e)=>{
+          e.stopPropagation(); 
+          toggleWatchList(movie);} }>
      <img src={image} alt="movie" />
         </button>)}
       </div>
@@ -114,7 +120,8 @@ getTrrendingMovies(page).then
         <div  className="fixed inset-0 z-50 overflow-y-auto bg-black bg-opacity-75 flex justify-center items-center h-screen">
           <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-[30vw]">
           <MovieInfo movie={selectedMovie}/>
-          <button  onClick={handleCloseModal} className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <button  onClick={handleCloseModal}
+                  className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
            
             Close
           </button>
